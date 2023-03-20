@@ -37,7 +37,7 @@ def game(player):
             (player == paper and computer_move == rock):
         print("The computer has taken a big L...\n")
         print("Congratulations, you win!")
-        
+
 
     elif player == computer_move:
         print("Oh...it's a draw")
@@ -55,17 +55,22 @@ paper = "paper"
 scissors = "scissors"
 
 players_choice = input("Choose one of the following - Rock, Paper or Scissors:\n")
-game(players_choice,counter_player,counter_pc) #calling game function
+game(players_choice) #calling game function
 
-dunno = input("Do you want to continue playing this game?\n")
+dunno = input("Do you want to continue playing this game?\n").lower()
 
-while dunno.lower == 'yes': #i made it == 'yes', so that it will be guaranteed that the user wants to play
-    players_choice = input("Choose one of the following - Rock, Paper or Scissors:\n")
+looping = True
+while looping: #i made it == 'yes', so that it will be guaranteed that the user wants to play
+    if dunno == "yes":
+        players_choice = input("Choose one of the following - Rock, Paper or Scissors:\n")
 
-    game(players_choice)
+        game(players_choice)
 
-    dunno = input("Do you want to continue playing this game?\n")
-
+        dunno = input("Do you want to continue playing this game?\n")
+    else:
+        print("Understandable... Bye then!")
+        looping = False
+        break
 
 
 
