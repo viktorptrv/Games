@@ -5,3 +5,6 @@ In time i will update it and add more features! For now it's nothing exciting - 
 
 # The Word Game
 So far i've made only the structure of the code and later will add more features and options.
+
+# Quiz Game
+I will try to add a feature in which the correct answer always changes its position
