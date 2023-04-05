@@ -32,7 +32,7 @@ if yes_no.lower() == 'yes':
 else:
     raise SystemExit("Well...ok, bye!")
 
-print('You have to always give a right answer to the questions, else... you will see. Answers are not case sensitive.')
+print('You have to always give a correct answer to the questions, else... you will see. Answers are not case sensitive.')
 
 #making a for loop with the length of the dictionary
 
@@ -70,5 +70,5 @@ else:
 
 
 #ideas for later:
-#make the correct answer take different lines every time
+#make the correct change its position every time
 
