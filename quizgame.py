@@ -36,22 +36,30 @@ print('You have to always give a right answer to the questions, else... you will
 
 #making a for loop with the length of the dictionary
 
-for i in range(len(quiz_dictionary)):
-    for key in quiz_dictionary.keys():
-        print('Current question is:')
-        print(key)
-        print('Choose one of the following answers:')
-        print(quiz_dictionary[key])
 
-        if key in false_answers_dictionary:
-            print('\n'.join(false_answers_dictionary[key]))
+for key in quiz_dictionary.keys():
+    print('Current question is:')
+    print(key)
+    print('Choose one of the following answers:')
+    print(quiz_dictionary[key])
+
+    if key in false_answers_dictionary:
+        print('\n'.join(false_answers_dictionary[key]))
+    user_answer = input().lower()
+
+        #if the line is blank
+    if not user_answer:
+        print('Blank lines are not accepted as answer!!!')
         user_answer = input().lower()
 
-        if user_answer == quiz_dictionary[key].lower():
-            print('\nAwesome! You receive 1 point\n')
-            points +=1
-        else:
-            print("\nF\n")
+    if user_answer == quiz_dictionary[key].lower():
+        print('\nAwesome! You receive 1 point\n')
+        points +=1
+    else:
+        print("\nF\n")
+
+    if list(quiz_dictionary).index(key) == len(quiz_dictionary):
+        break
 
 print(f"You finished the game with {points} points.")
 if points < 8:
