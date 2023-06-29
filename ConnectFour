@@ -1,0 +1,99 @@
+from collections import deque
+
+def place_circle():
+    row = 0 #izpolzvame promenliva za row, za da vurnem rezultat na koi red sme q postavili
+
+    while row != rows and board[row][player_col] == '0': #ako stignem posledniqt red no i reda da e razlichen ot 0 => trqbva da sprem sushto
+        row +=1 # uvelichavame row za da moje da namerim mqstoto kudeto e prazno
+
+    board[row-1][player_col] = player_symbol #rows e 6 no se broi ot 0 => 5 zatova ako row e stignalo rows trqbva da svalim s edno
+
+    return row - 1
+
+def check_for_win(row, col):
+    for x, y in directions: #x i y vuzpriemat stoinostta na tuple-a v directions
+        count = 1
+        for i in range(1, 4): # na index 0 se namira krugcheto
+            new_row = row + x * i #smenqme red chrez i koeto e posledovatelni stupki
+            new_col = col + y * i #smenqme kolona
+
+            if not (0 <= new_row < rows and 0 <= new_col < cols):
+                break
+            if board[new_row][new_col] != player_symbol:
+                break
+
+            count += 1
+
+        #obratna posoka
+        for i in range(1, 4): # na index 0 se namira krugcheto
+            new_row = row - x * i #smenqme red
+            new_col = col - y * i #smenqme kolona
+
+            if not (0 <= new_row < rows and 0 <= new_col < cols):
+                break
+            if board[new_row][new_col] != player_symbol:
+                break
+
+            count += 1
+
+        if count >= 4:
+            return True
+
+    return False
+
+answers = ['yes', 'ye', 'y', 'da']
+wins = {}
+win = False
+rows = 6
+cols = 7
+board = [['0'] * cols for row in range(rows)]
+board_two = []
+directions = (
+    (1,0), #down
+    (-1, 0), #top
+    (0, 1), #right
+    (0,-1), #left
+    (-1,-1), #topleft
+    (1, 1), #bottomright
+    (-1, 1), #topright
+    (1, -1), #bottomleft
+)
+
+turns = deque([['1', "Player One"], ['2', "Player Two"]]) #turns of players
+
+
+while not win:
+    [print(f"[ {', '.join(row)} ]")for row in board] # printirane na matricata
+
+    player_number, player_symbol = turns[0] # vlojenata matrica se razdelq
+    try:
+        player_col = int(input(f"{player_symbol}, please chose a column: ")) -1 #zashtoto kolonite sa ot 0
+    except ValueError:
+        print("TYPE A NUMBER BRUH")
+
+    if not 0 <= player_col < cols:
+        print(f"Select a valid number in the range (1-{cols})")
+        continue
+
+    if board[0][player_col] != '0':
+        print("No empty spaces on that row!")
+        continue
+
+    row = place_circle()
+    win = check_for_win(row, player_col)
+
+    turns.rotate() #smenqme reda na igrachite
+
+print(f"Player {turns[1][0]} wins this game!")
+
+if player_symbol in wins:
+    wins[player_symbol] += 1
+else:
+    wins[player_symbol] = 1
+
+if input("Do you want a rematch?\n").lower() in answers:
+    print("Restarting!")
+else:
+    print("Oh ok. BB")
+
+
